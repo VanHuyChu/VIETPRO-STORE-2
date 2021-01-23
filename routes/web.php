@@ -25,7 +25,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend'], function () {
     //category
     Route::group(['prefix' => 'category'], function () {
         Route::get('','CategoryController@GetCategory')->name('category.index');
+        Route::post('','CategoryController@PostCategory');
         Route::get('edit','CategoryController@EditCategory')->name('category.edit');
+        Route::post('edit','CategoryController@PostEditCategory');
     });
     //product
     Route::group(['prefix' => 'product'], function () {

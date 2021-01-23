@@ -1,3 +1,3 @@
 B5: Tạo Project
 
-B6: Master page + Active Slidebar
+B8: Master page + Active Slidebar

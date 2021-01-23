@@ -59,21 +59,13 @@
                                                 <label>Mã sản phẩm</label>
                                                 <input  type="text" name="product_code" class="form-control"
                                                     value="AN01">
-                                                    @if ($errors->has('product_code'))
-                                                    <div class="alert alert-danger" role="alert">
-                                                        <strong> {{ $errors->first('product_code') }}</strong>
-                                                    </div>
-                                                @endif
+                                                    {!!showErrors1($errors, 'product_code')!!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Tên sản phẩm</label>
                                                 <input  type="text" name="product_name" class="form-control"
                                                     value="Áo khoác nam đẹp">
-                                                    @if ($errors->has('product_name'))
-                                                    <div class="alert alert-danger" role="alert">
-                                                        <strong> {{ $errors->first('product_name') }}</strong>
-                                                    </div>
-                                                @endif
+                                                    {!!showErrors1($errors, 'product_name')!!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Giá sản phẩm (Giá chung)</label> <a
@@ -82,11 +74,7 @@
                                                     Giá theo biến thể</a>
                                                 <input  type="number" name="product_price" class="form-control"
                                                     value="150000">
-                                                    @if ($errors->has('product_price'))
-                                                    <div class="alert alert-danger" role="alert">
-                                                        <strong> {{ $errors->first('product_price') }}</strong>
-                                                    </div>
-                                                @endif
+                                                    {!!showErrors1($errors, 'product_price')!!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Sản phẩm nổi bật </label>
@@ -108,11 +96,7 @@
                                                 <label>Ảnh sản phẩm</label>
                                                 <input id="img" type="file" name="product_img" class="form-control hidden"
                                                     onchange="changeImg(this)">
-                                                    @if ($errors->has('product_img'))
-                                                    <div class="alert alert-danger" role="alert">
-                                                        <strong> {{ $errors->first('product_img') }}</strong>
-                                                    </div>
-                                                @endif
+                                                    {!!showErrors1($errors, 'product_img')!!}
                                                 <img id="avatar" class="thumbnail" width="100%" height="350px"
                                                     src="img/ao-khoac.jpg">
                                             </div>

@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Forms</title>
+	<title>Login Admin</title>
 	<base href="{{ asset('') }}backend/">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -23,31 +23,20 @@
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
-				<div class="panel-heading">VIETPRO ADMIN {{hello()}}</div>
+				<div class="panel-heading">VIETPRO ADMIN</div>
 				<div class="panel-body">
-					@if (session('thongbao'))
-						<div class="alert alert-danger" role="alert">
-							<strong>{{session('thongbao')}}</strong>
-						</div>
-					@endif
+					{{ShowSession(session('thongbao'))}}
 					<form method="POST">
 						@csrf
 						<fieldset>
 							<div class="form-group">
 							<input class="form-control" placeholder="E-mail" name="email" type="text" autofocus="" value="{{old('email')}}">
-							@if ($errors->has('email'))
-								<div class="alert alert-danger" role="alert">
-								<strong>{{$errors->first('email')}}</strong>
-								</div>
-							@endif
+							{!!showErrors1($errors, 'email')!!}
 							</div>
 							<div class="form-group">
 								<input class="form-control" placeholder="Password" name="password" type="password" value="{{old('password')}}">
-								@if ($errors->has('password'))
-									<div class="alert alert-danger" role="alert">
-									<strong>{{$errors->first('password')}}</strong>
-								</div>
-							@endif
+								
+								{!!showErrors1($errors, 'password')!!}
 							</div>
 							<div class="checkbox">
 								<label>

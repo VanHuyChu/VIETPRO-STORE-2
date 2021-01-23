@@ -1,14 +1,20 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login VIETPRO-STORE</title>
-	<base href="{{asset('')}}backend/">
+	<title>Forms</title>
+	<base href="{{ asset('') }}backend/">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+<script src="public/backend/js/html5shiv.js"></script>
+<script src="public/backend/js/respond.min.js"></script>
+<![endif]-->
 
 </head>
 
@@ -19,21 +25,31 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">VIETPRO ADMIN</div>
 				<div class="panel-body">
-					<form role="form" method="POST">
+					<form method="POST">
 						@csrf
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
+							<input class="form-control" placeholder="E-mail" name="email" type="text" autofocus="" value="{{old('email')}}">
+							@if ($errors->has('email'))
+								<div class="alert alert-danger" role="alert">
+								<strong>{{$errors->first('email')}}</strong>
+								</div>
+							@endif
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="Password" name="password" type="password" value="">
+								<input class="form-control" placeholder="Password" name="password" type="password" value="{{old('password')}}">
+								@if ($errors->has('password'))
+									<div class="alert alert-danger" role="alert">
+									<strong>{{$errors->first('password')}}</strong>
+								</div>
+							@endif
 							</div>
 							<div class="checkbox">
 								<label>
 									<input name="remember" type="checkbox" value="Remember Me">Remember Me
 								</label>
 							</div>
-							<button class="btn btn-primary">Login</button>
+							<button type="submit" class="btn btn-primary">Login</button>
 						</fieldset>
 					</form>
 				</div>

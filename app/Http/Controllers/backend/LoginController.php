@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\backend\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -11,17 +12,8 @@ class LoginController extends Controller
    {
       return view('backend.login.login');
    }
-   public function PostLogin(request $request)
+   public function PostLogin(LoginRequest $request)
    {
-    $request->validate([
-        'email'=>'required|email',
-        'password'=>'required|min:5',
-     ],[
-        'email.required'=>'email không được để trống!',
-        'email.email'=>'email không đúng định dạng!',
-        'password.required'=>'Mật khẩu không được để trống!',
-        'password.min'=>'Mật khẩu không được nhỏ hơn 5 ký tự',
-     ]);
       if($request->email=='admin@gmail.com'&&$request->password=='123456')
       {
          return redirect('admin');

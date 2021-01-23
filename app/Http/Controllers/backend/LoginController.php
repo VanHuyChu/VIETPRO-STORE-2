@@ -8,28 +8,28 @@ use App\Http\Requests\backend\LoginRequest;
 
 class LoginController extends Controller
 {
-    public function GetLogin()
+   public function GetLogin()
    {
       return view('backend.login.login');
    }
    public function PostLogin(LoginRequest $request)
    {
-      if($request->email=='admin@gmail.com'&&$request->password=='123456')
-      {
+      if ($request->email == 'admin@gmail.com' && $request->password == '123456') {
+         session()->put('email', $request->email);
          return redirect('admin');
-      }
-      else {
+      } else {
          return redirect('login')->withInput();
       }
    }
 
    public function GetIndex()
    {
-       return view('backend.index');
+      return view('backend.index');
    }
 
    public function Logout()
    {
-       return redirect('login');
+      session()->forget('email');
+      return redirect('login');
    }
 }

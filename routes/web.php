@@ -31,7 +31,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend'], function () {
     Route::group(['prefix' => 'product'], function () {
         Route::get('','ProductController@ListProduct')->name('product.index');
         Route::get('add','ProductController@AddProduct')->name('product.add');
+        Route::post('add','ProductController@PostProduct');
         Route::get('edit','ProductController@EditProduct')->name('product.edit');
+        Route::post('edit','ProductController@PostEditProduct');
 
         Route::get('detail-attr','ProductController@DetailAttr')->name('detail-attr');
         Route::get('edit-attr','ProductController@EditAttr')->name('edit-attr');

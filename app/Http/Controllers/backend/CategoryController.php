@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function GetCategory()
-   {
-       echo 'Đây là trang Danh mục';
-   }
+    {
+        return view('backend.category.category');
+    }
 
-   public function EditCategory()
-   {
-       echo 'Đây là trang sửa Danh mục';
-   }
+    public function EditCategory()
+    {
+        return view('backend.category.editcategory');
+    }
 }

@@ -9,14 +9,14 @@ class OrderController extends Controller
 {
     public function ListOrder()
     {
-        echo 'Danh sách đơn hàng';
+        return view('backend.order.order');
     }
     public function DetailOrder()
     {
-        echo 'Chi tiết đơn hàng';
+        return view('backend.order.detailorder');
     }
     public function Processed()
     {
-        echo 'Danh sách Đơn hàng đã xửa lý';
+        return view('backend.order.orderprocessed');
     }
 }

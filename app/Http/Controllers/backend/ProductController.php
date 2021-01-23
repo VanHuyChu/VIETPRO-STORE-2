@@ -8,44 +8,44 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function ListProduct()
-   {
-       echo 'Đây là trang Danh sách sản phẩm';
-   }
+    {
+        return view('backend.product.listproduct');
+    }
 
-   public function AddProduct()
-   {
-       echo 'Đây là trang Thêm sản phẩm';
-   }
+    public function AddProduct()
+    {
+        return view('backend.product.addproduct');
+    }
 
-   public function EditProduct()
-   {
-       echo 'Đây là trang sửa sản phẩm';
-   }
+    public function EditProduct()
+    {
+        return view('backend.product.editproduct');
+    }
 
-   public function DetailAttr()
-   {
-       echo 'Đây là trang quản lý thuộc tính';
-   }
+    public function DetailAttr()
+    {
+        return view('backend.attr.attr');
+    }
 
-   public function EditAttr()
-   {
-       echo 'Đây là trang Sửa thuộc tính';
-   }
-
-
-   public function EditValue()
-   {
-       echo 'Đây là trang Sửa giá trị của thuộc tính';
-   }
+    public function EditAttr()
+    {
+        return view('backend.attr.editattr');
+    }
 
 
-   public function AddVariant()
-   {
-       echo 'Thêm biến thể';
-   }
+    public function EditValue()
+    {
+        return view('backend.attr.editvalue');
+    }
 
-   public function EditVariant()
-   {
-       echo 'Sửa biến thể';
-   }
+
+    public function AddVariant()
+    {
+        return view('backend.variant.addvariant');
+    }
+
+    public function EditVariant()
+    {
+        return view('backend.variant.editvariant');
+    }
 }

@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function GetLogin()
-   {
-       echo 'Đây là trang Login';
-   }
+    {
+        return view('backend.login.login');
+    }
 
-   public function GetIndex()
-   {
-       echo 'Đây là trang quản trị';
-   }
+    public function GetIndex()
+    {
+        return view('backend.index');
+    }
 }

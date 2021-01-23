@@ -17,7 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 //backend
-Route::get('login','backend\LoginController@GetLogin');
+Route::get('login','backend\LoginController@GetLogin')->name('login.get');
+Route::post('login','backend\LoginController@PostLogin');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'backend'], function () {
     Route::get('','LoginController@GetIndex')->name('admin.index');

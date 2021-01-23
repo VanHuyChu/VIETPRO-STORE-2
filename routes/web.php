@@ -27,8 +27,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
     Route::group(['prefix' => 'category'], function () {
         Route::get('','CategoryController@GetCategory')->name('category.index');
         Route::post('','CategoryController@PostCategory');
-        Route::get('edit','CategoryController@EditCategory')->name('category.edit');
-        Route::post('edit','CategoryController@PostEditCategory');
+        Route::get('edit/{id}','CategoryController@EditCategory')->name('category.edit');
+        Route::post('edit/{id}','CategoryController@PostEditCategory');
+        Route::get('del/{id}','CategoryController@DelCategory')->name('category.del');
     });
     //product
     Route::group(['prefix' => 'product'], function () {

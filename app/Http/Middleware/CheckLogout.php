@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CheckLogout
 {
@@ -15,7 +16,7 @@ class CheckLogout
      */
     public function handle($request, Closure $next)
     {
-        if(session()->has('email'))
+        if(Auth::check())
         {
             return redirect('admin');
         }

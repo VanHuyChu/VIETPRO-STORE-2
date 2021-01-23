@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\backend\LoginRequest;
 use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -16,9 +17,8 @@ class LoginController extends Controller
    }
    public function PostLogin(LoginRequest $request)
    {
-      if( Users::where('email',$request->email)->where('password',$request->password)->count()>0)
+      if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
       {
-         session()->put('email',$request->email);
          return redirect('admin');
       }
       else {
@@ -33,7 +33,7 @@ class LoginController extends Controller
 
    public function Logout()
    {
-      session()->forget('email');
+      Auth::logout();
       return redirect('login');
    }
 }

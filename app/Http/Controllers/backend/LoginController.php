@@ -5,8 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 use App\Http\Requests\backend\LoginRequest;
+use App\Models\Users;
 
 class LoginController extends Controller
 {
@@ -16,7 +16,7 @@ class LoginController extends Controller
    }
    public function PostLogin(LoginRequest $request)
    {
-      if( DB::table('users')->where('email',$request->email)->where('password',$request->password)->count()>0)
+      if( Users::where('email',$request->email)->where('password',$request->password)->count()>0)
       {
          session()->put('email',$request->email);
          return redirect('admin');

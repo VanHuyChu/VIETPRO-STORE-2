@@ -89,7 +89,7 @@
                                                 @endif
                                             </div>
                                             <div class="form-group">
-                                                <label>Sản phẩm nổi bật</label>
+                                                <label>Sản phẩm nổi bật </label>
                                                 <select  name="product_state" class="form-control">
                                                     <option value="0">Không</option>
                                                     <option value="1">Có</option>

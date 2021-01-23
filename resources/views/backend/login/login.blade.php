@@ -25,6 +25,11 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">VIETPRO ADMIN</div>
 				<div class="panel-body">
+					@if (session('thongbao'))
+						<div class="alert alert-danger" role="alert">
+							<strong>{{session('thongbao')}}</strong>
+						</div>
+					@endif
 					<form method="POST">
 						@csrf
 						<fieldset>

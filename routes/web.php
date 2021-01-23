@@ -17,11 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 //backend
-Route::get('login','backend\LoginController@GetLogin')->name('login.get');
+Route::get('login','backend\LoginController@GetLogin')->name('login.get')->middleware('CheckLogout');
 Route::post('login','backend\LoginController@PostLogin');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'backend'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'CheckLogin'], function () {
     Route::get('','LoginController@GetIndex')->name('admin.index');
+    Route::get('logout','LoginController@Logout')->name('logout');
     //category
     Route::group(['prefix' => 'category'], function () {
         Route::get('','CategoryController@GetCategory')->name('category.index');

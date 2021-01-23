@@ -11,9 +11,24 @@ class CategoryController extends Controller
     {
         return view('backend.category.category');
     }
-
+    public function PostCategory(request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => 'Tên danh mục không được để trống',
+        ]);
+    }
     public function EditCategory()
     {
         return view('backend.category.editcategory');
+    }
+    public function PostEditCategory(request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => 'Tên danh mục không được để trống',
+        ]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Routing\UrlGenerator;
 function GetCategory($mang, $parent, $shift, $active)
 {
     foreach ($mang as $row) {
@@ -37,13 +38,22 @@ function ShowSession($session)
         <div class="alert bg-success" role="alert">
             <svg class="glyph stroked checkmark">
             <use xlink:href="#stroked-checkmark"></use>
-            </svg> '.$session.' <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+            </svg> '.$session.' <a href="'.url()->full().'" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
         ';
     } 
-       
-    
-    
+}
+function ShowSessionDelete($session)
+{
+    if ($session) {
+        echo '
+        <div class="alert bg-danger" role="alert">
+            <svg class="glyph stroked checkmark">
+            <use xlink:href="#stroked-checkmark"></use>
+            </svg> '.$session.' <a href="'.url()->full().'" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
+        ';
+    } 
 }
 function showErrors($errors, $name)
 {

@@ -13,6 +13,7 @@ use App\Models\Attributes;
 use App\Models\Products;
 use App\Models\Values;
 
+
 class ProductController extends Controller
 {
     public function ListProduct()
@@ -41,7 +42,10 @@ class ProductController extends Controller
 
     public function AddAttr(AddAttrRequest  $request)
     {
-        dd($request->attr_name);
+        $attribute=new Attributes();
+        $attribute->name=$request->attr_name;
+        $attribute->save();
+        return redirect()->back()->with('thong-bao-addAttr','Đã thêm thuộc tính '.$request->attr_name);
     }
     public function DetailAttr()
     {
@@ -49,11 +53,7 @@ class ProductController extends Controller
         return view('backend.attr.attr',$data);
     }
 
-    public function AddValue(AddValueRequest $request)
-    {
-        dd($request->add_value);
-        return view('backend.attr.editattr');
-    }
+    
 
     public function EditAttr($id)
     {
@@ -62,13 +62,31 @@ class ProductController extends Controller
     }
     public function EditAttrPost(EditAttrRequest $request, $id)
     {
-        dd($request->valueEditAttr);
-        $attrs=Attributes::find($id);
-        return view('backend.attr.editattr',compact('attrs'));
+        if (Attributes::where('name', '=', $request->name)->count() > 0) {
+            return redirect()->route('product.add')->with('thongbao-EditAttr','Không có sự thay đổi');
+        }else{
+            $Attribute=Attributes::find($id);
+            $Attribute->name=$request->name;
+            $Attribute->save();
+            return redirect()->route('product.add')->with('thongbao-EditAttr','Đã sửa thành cônng');
+        }
+        
+    }
+    public function DelAttr($id){
+        $Attribute=Attributes::find($id);
+        $Attribute->delete();
+        return redirect()->route('detail-attr')->with('thongbao-DelAttr','Đã xóa thuộc tính '.$Attribute->name);
     }
     /**
      * Value Attribute
      */
+    public function AddValue(AddValueRequest $request)
+    {
+        $value=new Values();
+        $value->value=$request->add_value;
+        $value->save();
+        return redirect()->back()->with('thong-bao-addValue','Đã thêm giá trị thuộc tính '.$request->attr_name);
+    }
     public function EditValue($id)
     {
         $values=Values::find($id);

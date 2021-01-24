@@ -17,13 +17,13 @@
 			<div class="col-md-6">	
 			<div class="panel panel-blue">
 				<div class="panel-heading dark-overlay">Sửa thuộc tính</div>
-				{!! showErrors1($errors, 'valueEditAttr') !!}
+				{!! showErrors1($errors, 'name') !!}
 				<div class="panel-body">
 					<form action="{{route('edit-attr-post',['id'=>$attrs->id])}}" method="post">
 					@csrf
 						<div class="form-group">
 							<label for="">Tên Thuộc tính</label>
-							<input type="text" name="valueEditAttr" class="form-control" placeholder="" aria-describedby="helpId" value="{{$attrs->name}}">
+							<input type="text" name="name" class="form-control" placeholder="" aria-describedby="helpId" value="{{$attrs->name}}">
 						</div>
 						<div  align="right"><button class="btn btn-success" type="submit">Sửa</button></div>
 					</form>

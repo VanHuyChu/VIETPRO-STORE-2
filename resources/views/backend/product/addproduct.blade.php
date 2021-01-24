@@ -111,6 +111,9 @@
                                                     Tuỳ chọn</a></label>
                                                     {!! showErrors1($errors, 'attr_name') !!}
                                                     {!! showErrors1($errors, 'add_value') !!}
+                                                    {{ShowSession(session('thong-bao-addAttr'))}}
+                                                    {{ShowSession(session('thong-bao-addValue'))}}
+                                                    {{ShowSession(session('thongbao-EditAttr'))}}
                                             <ul class="nav nav-tabs">
                                                 @php
                                                 $i=0

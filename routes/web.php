@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::get('detail-attr','ProductController@DetailAttr')->name('detail-attr');
         Route::get('edit-attr/{id}','ProductController@EditAttr')->name('edit-attr');
         Route::post('edit-attr/{id}','ProductController@EditAttrPost')->name('edit-attr-post');
+        Route::get('del-attr/{id}','ProductController@DelAttr')->name('del-attr');
 
         Route::post('add-value','ProductController@AddValue')->name('add-value');
         Route::get('edit-value/{id}','ProductController@EditValue')->name('edit-value');

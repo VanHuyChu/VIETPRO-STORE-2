@@ -105,7 +105,7 @@
 
                                     <div class="panel panel-default">
                                         <div class="panel-body tabs">
-                                            <label>Các thuộc Tính <a href="#"><span class="glyphicon glyphicon-cog"></span>
+                                            <label>Các thuộc Tính <a href="{{route('detail-attr')}}"><span class="glyphicon glyphicon-cog"></span>
                                                     Tuỳ chọn</a></label>
                                             <ul class="nav nav-tabs">
                                                 <li class='active'><a href="#tab17" data-toggle="tab">size</a></li>

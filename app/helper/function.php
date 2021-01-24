@@ -64,3 +64,16 @@ function showErrors1($errors, $name){
     </div>';
     }
 }
+
+
+//input $mang=$product->values   output: array('size'=>array(s,m),'color'=>array('Đỏ',Xanh)) 
+function attr_values($mang)
+{
+    $result=array();
+    foreach($mang as $value)
+    {
+        $attr=$value->attribute->name;
+        $result[$attr][]=$value->value;
+    }
+    return $result;
+}

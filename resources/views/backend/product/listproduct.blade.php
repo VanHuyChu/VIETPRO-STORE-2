@@ -50,43 +50,45 @@
 										</tr>
 									</thead>
 									<tbody>
+										@foreach ($products as $key => $item)
 										<tr>
-											<td>1</td>
+											<td>{{$products->firstitem()+ $key}}</td>
 											<td>
 												<div class="row">
-													<div class="col-md-3"><img src="img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
+													<div class="col-md-3"><img src="img/{{$item->img}}" alt="Áo đẹp" width="100px" class="thumbnail"></div>
 													<div class="col-md-9">
-														<p><strong>Mã sản phẩm : SP01</strong></p>
-														<p>Tên sản phẩm :Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
-														<p>Danh mục:Áo khoác nam</p>
-														<p>size:xl,xxl,</p>
-														<p>color:red,blue,</p>
-
+														<p><strong>Mã sản phẩm : {{$item->product_code}}</strong></p>
+														<p>Tên sản phẩm :{{$item->name}}</p>
+														<p>Danh mục:{{$item->category->name}}</p>
+														@foreach (attr_values($item->values) as $attibute=>$values)
+														<p>{{$attibute}}:
+															@foreach ($values as $value_item)
+																{{$value_item}},
+															@endforeach
+														</p>
+														@endforeach
 													</div>
 												</div>
 											</td>
-											<td>500.000 VND</td>
+											<td>{{ number_format($item->price,0,"",",")}} VND</td>
 											<td>
-												<a name="" id="" class="btn btn-success" href="#" role="button">Còn hàng</a>
+												@if ($item->state==1)
+												<a class="btn btn-success" href="#" role="button">Còn hàng</a>
+												@else
+												<a class="btn btn-danger" href="#" role="button">Hết hàng</a>
+												@endif
 											</td>
-											<td>Áo Khoác Nam</td>
+											<td>{{$item->category->name}}</td>
 											<td>
 												<a href="{{route('product.edit')}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
 												<a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
 											</td>
 										</tr>
-
-
+										@endforeach
 									</tbody>
 								</table>
 								<div align='right'>
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
-									</ul>
+									{{$products->links()}}
 								</div>
 							</div>
 							<div class="clearfix"></div>

@@ -20,7 +20,8 @@ class ProductController extends Controller
 
     public function AddProduct()
     {
-        return view('backend.product.addproduct');
+        $data['attrs']=Attributes::all();
+        return view('backend.product.addproduct', $data);
     }
     public function PostProduct(AddProductRequest $request)
     {
@@ -37,11 +38,6 @@ class ProductController extends Controller
     public function DetailAttr()
     {
         $data['attrs']=Attributes::all();
-        // foreach ($data['attrs'] as $value){
-        //     dd($value->values);
-        //     return $value->value;
-        // }
-											
         return view('backend.attr.attr',$data);
     }
 

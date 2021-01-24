@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\backend\AddProductRequest;
 use App\Http\Requests\backend\EditProductRequest;
+use App\Models\Products;
 
 class ProductController extends Controller
 {
     public function ListProduct()
     {
-        return view('backend.product.listproduct');
+        //dd(attr_values(Products::find(1)->values()->get()));
+        $data['products']=Products::paginate(10);
+        return view('backend.product.listproduct', $data);
     }
 
     public function AddProduct()

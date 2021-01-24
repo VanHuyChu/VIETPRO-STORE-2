@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\backend\AddProductRequest;
 use App\Http\Requests\backend\EditProductRequest;
+use App\Models\Attributes;
 use App\Models\Products;
 
 class ProductController extends Controller
 {
     public function ListProduct()
     {
-        //dd(attr_values(Products::find(1)->values()->get()));
+        // dd(attr_values(Products::find(1)->values()->get()));
         $data['products']=Products::paginate(10);
         return view('backend.product.listproduct', $data);
     }
@@ -35,7 +36,13 @@ class ProductController extends Controller
 
     public function DetailAttr()
     {
-        return view('backend.attr.attr');
+        $data['attrs']=Attributes::all();
+        // foreach ($data['attrs'] as $value){
+        //     dd($value->values);
+        //     return $value->value;
+        // }
+											
+        return view('backend.attr.attr',$data);
     }
 
     public function EditAttr()

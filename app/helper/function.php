@@ -73,6 +73,7 @@ function attr_values($mang)
     foreach($mang as $value)
     {
         $attr=$value->attribute->name;
+        // $value->value gán giá trị của cột value vào trong []
         $result[$attr][]=$value->value;
     }
     return $result;

@@ -39,10 +39,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::get('edit','ProductController@EditProduct')->name('product.edit');
         Route::post('edit','ProductController@PostEditProduct');
 
+        Route::post('add-attr','ProductController@AddAttr')->name('add-attr');
         Route::get('detail-attr','ProductController@DetailAttr')->name('detail-attr');
-        Route::get('edit-attr','ProductController@EditAttr')->name('edit-attr');
+        Route::get('edit-attr/{id}','ProductController@EditAttr')->name('edit-attr');
+        Route::post('edit-attr/{id}','ProductController@EditAttrPost')->name('edit-attr-post');
 
-        Route::get('edit-value','ProductController@EditValue')->name('edit-value');
+        Route::post('add-value','ProductController@AddValue')->name('add-value');
+        Route::get('edit-value/{id}','ProductController@EditValue')->name('edit-value');
+        Route::post('edit-value/{id}','ProductController@EditValuePost')->name('edit-value-post');
 
         Route::get('add-variant','ProductController@AddVariant')->name('add-variant');
         Route::get('edit-variant','ProductController@EditVariant')->name('edit-variant');

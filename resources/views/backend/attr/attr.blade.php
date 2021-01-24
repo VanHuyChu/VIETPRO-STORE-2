@@ -31,12 +31,12 @@
 									<div class="col-md-2 panel-blue widget-left">
 										<strong class="large">{{$attr->name}}</strong>
 										<a class="delete-attr" href="#"><i class="fas fa-times"></i></a>
-										<a class="edit-attr" href="#"><i class="fas fa-edit"></i></a>
+										<a class="edit-attr" href="{{route('edit-attr',['id'=>$attr->id])}}"><i class="fas fa-edit"></i></a>
 									</div>
 									<div class="col-md-10 widget-right boxattr">
 										@foreach ($attr->values as $item)
 										<div class="text-attr">{{$item->value}}
-											<a href="#" class="edit-value"><i class="fas fa-edit"></i></a>
+											<a href="{{route('edit-value',['id'=>$item->id])}}" class="edit-value"><i class="fas fa-edit"></i></a>
 											<a href="#" class="del-value"><i class="fas fa-times"></i></a>
 										</div>
 										@endforeach

@@ -45,7 +45,7 @@ class ProductController extends Controller
         $attribute=new Attributes();
         $attribute->name=$request->attr_name;
         $attribute->save();
-        return redirect()->back()->with('thong-bao-addAttr','Đã thêm thuộc tính '.$request->attr_name);
+        return redirect()->back()->with('thong-bao','Đã thêm thuộc tính '.$request->attr_name);
     }
     public function DetailAttr()
     {
@@ -63,12 +63,12 @@ class ProductController extends Controller
     public function EditAttrPost(EditAttrRequest $request, $id)
     {
         if (Attributes::where('name', '=', $request->name)->count() > 0) {
-            return redirect()->route('product.add')->with('thongbao-EditAttr','Không có sự thay đổi');
+            return redirect()->route('product.add')->with('thongbao','Không có sự thay đổi');
         }else{
             $Attribute=Attributes::find($id);
             $Attribute->name=$request->name;
             $Attribute->save();
-            return redirect()->route('product.add')->with('thongbao-EditAttr','Đã sửa thành cônng');
+            return redirect()->route('product.add')->with('thongbao','Đã sửa thành cônng');
         }
         
     }
@@ -84,18 +84,25 @@ class ProductController extends Controller
     {
         $value=new Values();
         $value->value=$request->add_value;
+        $value->attr_id=$request->id_attr;
         $value->save();
-        return redirect()->back()->with('thong-bao-addValue','Đã thêm giá trị thuộc tính '.$request->attr_name);
+        return redirect()->back()->with('thong-bao','Đã thêm giá trị '.$request->add_value);
     }
-    public function EditValue($id)
+    public function EditValue(Request $request)
     {
-        $values=Values::find($id);
-        return view('backend.attr.editvalue',compact('values'));
+        $data['values']=Values::find($request->id_value);
+        return view('backend.attr.editvalue',$data);
     }
     public function EditValuePost(EditAttrRequest $request, $id)
     {
-        dd($request->name);
-        return view('backend.attr.editvalue');
+        $value=Values::find($id);
+        $value->value=$request->name;
+        $value->save();
+        return redirect()->route('detail-attr')->with('thongbao-EditAttr','Đã sửa giá trị thuộc tính thành cônng');
+    }
+    public function DelValue(Request $request){
+        Values::destroy($request->id_value);
+        return redirect()->route('detail-attr')->with('thongbao-EditAttr','Đã xóa giá trị thuộc tính '.$request->name);
     }
     public function AddVariant()
     {

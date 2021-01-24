@@ -111,9 +111,7 @@
                                                     Tuỳ chọn</a></label>
                                                     {!! showErrors1($errors, 'attr_name') !!}
                                                     {!! showErrors1($errors, 'add_value') !!}
-                                                    {{ShowSession(session('thong-bao-addAttr'))}}
-                                                    {{ShowSession(session('thong-bao-addValue'))}}
-                                                    {{ShowSession(session('thongbao-EditAttr'))}}
+                                                    {{ShowSession(session('thong-bao'))}}
                                             <ul class="nav nav-tabs">
                                                 @php
                                                 $i=0
@@ -153,7 +151,7 @@
                                                             @csrf
                                                             <div class="form-group">
                                                                 <label for="">Thêm giá trị của thuộc tính</label>
-                                                                <input type="hidden" name="id_pro" value="17">
+                                                                <input type="hidden" name="id_attr" value="{{$value->id}}">
                                                                 <input name="add_value" type="text" class="form-control"
                                                                     aria-describedby="helpId" placeholder="">
 
@@ -174,7 +172,6 @@
                                                                 aria-describedby="helpId" placeholder="">
                                                             
                                                         </div>
-                                                    
                                                     <button type="submit" name="add_pro" class="btn btn-success"> <span
                                                             class="glyphicon glyphicon-plus"></span>
                                                         Thêm thuộc tính</button>
@@ -188,7 +185,6 @@
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
                                                 <p></p>
-
                                             </label>
                                         </div>
                                     </div>
@@ -211,7 +207,6 @@
                 </form>
             </div>
         </div>
-
         <!--/.row-->
     </div>
 @endsection

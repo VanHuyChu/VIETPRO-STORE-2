@@ -33,21 +33,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
     });
     //product
     Route::group(['prefix' => 'product'], function () {
+        // product table
         Route::get('','ProductController@ListProduct')->name('product.index');
         Route::get('add','ProductController@AddProduct')->name('product.add');
         Route::post('add','ProductController@PostProduct');
         Route::get('edit','ProductController@EditProduct')->name('product.edit');
         Route::post('edit','ProductController@PostEditProduct');
-
+        // attribute table
         Route::post('add-attr','ProductController@AddAttr')->name('add-attr');
         Route::get('detail-attr','ProductController@DetailAttr')->name('detail-attr');
         Route::get('edit-attr/{id}','ProductController@EditAttr')->name('edit-attr');
         Route::post('edit-attr/{id}','ProductController@EditAttrPost')->name('edit-attr-post');
         Route::get('del-attr/{id}','ProductController@DelAttr')->name('del-attr');
-
+        // value table
         Route::post('add-value','ProductController@AddValue')->name('add-value');
-        Route::get('edit-value/{id}','ProductController@EditValue')->name('edit-value');
+        Route::get('edit-value/','ProductController@EditValue')->name('edit-value');
         Route::post('edit-value/{id}','ProductController@EditValuePost')->name('edit-value-post');
+        Route::get('del-value','ProductController@DelValue')->name('del-value');
 
         Route::get('add-variant','ProductController@AddVariant')->name('add-variant');
         Route::get('edit-variant','ProductController@EditVariant')->name('edit-variant');

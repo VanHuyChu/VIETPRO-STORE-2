@@ -27,6 +27,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						{{ShowSessionDelete(session('thongbao-DelAttr'))}}
+						{{ShowSession(session('thongbao-EditAttr'))}}
 						@foreach ($attrs as $attr)
 							<div class="row magrin-attr">
 									<div class="col-md-2 panel-blue widget-left">
@@ -37,8 +38,8 @@
 									<div class="col-md-10 widget-right boxattr">
 										@foreach ($attr->values as $item)
 										<div class="text-attr">{{$item->value}}
-											<a href="{{route('edit-value',['id'=>$item->id])}}" class="edit-value"><i class="fas fa-edit"></i></a>
-											<a href="{{route('edit-value',['id'=>$item->id])}}" class="del-value"><i class="fas fa-times"></i></a>
+											<a href="{{route('edit-value',['id_value'=>$item->id])}}" class="edit-value"><i class="fas fa-edit"></i></a>
+											<a href="{{route('del-value',['id_value'=>$item->id,'name'=>$item->value])}}" class="del-value"><i class="fas fa-times"></i></a>
 										</div>
 										@endforeach
 									</div>	

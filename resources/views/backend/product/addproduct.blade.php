@@ -38,6 +38,7 @@
             <div class="col-xs-6 col-md-12 col-lg-12">
                 <form method="post" enctype="multipart/form-data">
                     @csrf
+                    <form action="" method="post"></form>
                     <div class="panel panel-primary">
                         <div class="panel-heading">Thêm sản phẩm</div>
                         <div class="panel-body">
@@ -57,17 +58,17 @@
                                             <div class="form-group">
                                                 <label>Mã sản phẩm</label>
                                                 <input type="text" name="product_code" class="form-control">
-                                                {!!showErrors1($errors, 'product_code')!!}
+                                                {!! showErrors1($errors, 'product_code') !!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Tên sản phẩm</label>
                                                 <input type="text" name="product_name" class="form-control">
-                                                {!!showErrors1($errors, 'product_name')!!}
+                                                {!! showErrors1($errors, 'product_name') !!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Giá sản phẩm (Giá chung)</label>
                                                 <input type="number" name="product_price" class="form-control">
-                                                {!!showErrors1($errors, 'product_price')!!}
+                                                {!! showErrors1($errors, 'product_price') !!}
                                             </div>
                                             <div class="form-group">
                                                 <label>Sản phẩm nổi bật</label>
@@ -89,7 +90,7 @@
                                                 <label>Ảnh sản phẩm</label>
                                                 <input id="img" type="file" name="product_img" class="form-control hidden"
                                                     onchange="changeImg(this)">
-                                                    {!!showErrors1($errors, 'product_img')!!}
+                                                {!! showErrors1($errors, 'product_img') !!}
                                                 <img id="avatar" class="thumbnail" width="100%" height="350px"
                                                     src="img/import-img.png">
                                             </div>
@@ -105,64 +106,76 @@
 
                                     <div class="panel panel-default">
                                         <div class="panel-body tabs">
-                                            <label>Các thuộc Tính <a href="{{route('detail-attr')}}"><span class="glyphicon glyphicon-cog"></span>
+                                            <label>Các thuộc Tính <a href="{{ route('detail-attr') }}"><span
+                                                        class="glyphicon glyphicon-cog"></span>
                                                     Tuỳ chọn</a></label>
+                                                    {!! showErrors1($errors, 'attr_name') !!}
+                                                    {!! showErrors1($errors, 'add_value') !!}
                                             <ul class="nav nav-tabs">
                                                 @php
-                                                    $i=0
+                                                $i=0
                                                 @endphp
                                                 @foreach ($attrs as $item)
-                                                <li @if($i==0) class='active' @endif ><a href="#tab{{$item->id}}" data-toggle="tab">{{$item->name}}</a></li>
-                                                @php
-                                                $i=1
-                                                @endphp
+                                                    <li @if ($i == 0) class='active' @endif><a
+                                                            href="#tab{{ $item->id }}"
+                                                            data-toggle="tab">{{ $item->name }}</a></li>
+                                                    @php
+                                                    $i=1
+                                                    @endphp
                                                 @endforeach
                                                 <li><a href="#tab-add" data-toggle="tab">+</a></li>
                                             </ul>
                                             <div class="tab-content">
                                                 @foreach ($attrs as $value)
-                                                <div class="tab-pane fade @if($i==1) active @endif in" id="tab{{$value->id}}">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                @foreach ($value->values as $item)
-                                                                    <th>{{$item->value}}</th>
-                                                                @endforeach
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                @foreach ($value->values as $item)
-                                                                    <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[17][60]" value="60"> </td>
-                                                                @endforeach
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <label for="">Thêm giá trị của thuộc tính</label>
-                                                        <input type="hidden" name="id_pro" value="17">
-                                                        <input name="var_name" type="text" class="form-control"
-                                                            aria-describedby="helpId" placeholder="">
-                                                        <div> <button name="add_val" type="submit">Thêm</button></div>
+                                                    <div class="tab-pane fade @if ($i==1) active @endif in" id="tab{{ $value->id }}">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    @foreach ($value->values as $item)
+                                                                        <th>{{ $item->value }}</th>
+                                                                    @endforeach
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    @foreach ($value->values as $item)
+                                                                        <td> <input class="form-check-input" type="checkbox"
+                                                                                name="attr[17][60]" value="60"> </td>
+                                                                    @endforeach
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <hr>
+                                                        <form action="{{route('add-value')}}" method="post">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="">Thêm giá trị của thuộc tính</label>
+                                                                <input type="hidden" name="id_pro" value="17">
+                                                                <input name="add_value" type="text" class="form-control"
+                                                                    aria-describedby="helpId" placeholder="">
+
+                                                                <div> <button name="add_val" type="submit">Thêm</button></div>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                </div>
-                                                @php
-                                                $i=2
-                                                @endphp
+                                                    @php
+                                                    $i=2
+                                                    @endphp
                                                 @endforeach
                                                 <div class="tab-pane fade" id="tab-add">
-
-                                                    <div class="form-group">
-                                                        <label for="">Tên thuộc tính mới</label>
-                                                        <input type="text" class="form-control" name="pro_name"
-                                                            aria-describedby="helpId" placeholder="">
-                                                    </div>
-
+                                                    <form action="{{ route('add-attr') }}" method="post">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="">Tên thuộc tính mới</label>
+                                                            <input type="text" class="form-control" name="attr_name"
+                                                                aria-describedby="helpId" placeholder="">
+                                                            
+                                                        </div>
+                                                    
                                                     <button type="submit" name="add_pro" class="btn btn-success"> <span
                                                             class="glyphicon glyphicon-plus"></span>
                                                         Thêm thuộc tính</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

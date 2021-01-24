@@ -21,13 +21,16 @@
 			<div class="col-md-6">	
 			<div class="panel panel-blue">
 				<div class="panel-heading dark-overlay">Sửa giá trị của tính</div>
+				{!! showErrors1($errors, 'name') !!}
 				<div class="panel-body">
+					<form action="{{route('edit-value-post',['id'=>$values->id])}}" method="post">
+						@csrf
 					<div class="form-group">
 					  <label for="">Tên giá trị của thuộc tính</label>
-					  <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-				
+					  <input type="text" name="name" class="form-control" placeholder="Nhập tên giá trị thuộc tính" aria-describedby="helpId" value="{{$values->value}}">
 					</div>
 					<div  align="right"><button class="btn btn-success" type="submit">Sửa</button></div>
+				</form>
 				</div>
 			</div>
 											

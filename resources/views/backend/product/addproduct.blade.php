@@ -108,30 +108,34 @@
                                             <label>Các thuộc Tính <a href="{{route('detail-attr')}}"><span class="glyphicon glyphicon-cog"></span>
                                                     Tuỳ chọn</a></label>
                                             <ul class="nav nav-tabs">
-                                                <li class='active'><a href="#tab17" data-toggle="tab">size</a></li>
-                                                <li><a href="#tab18" data-toggle="tab">Màu sắc</a></li>
+                                                @php
+                                                    $i=0
+                                                @endphp
+                                                @foreach ($attrs as $item)
+                                                <li @if($i==0) class='active' @endif ><a href="#tab{{$item->id}}" data-toggle="tab">{{$item->name}}</a></li>
+                                                @php
+                                                $i=1
+                                                @endphp
+                                                @endforeach
                                                 <li><a href="#tab-add" data-toggle="tab">+</a></li>
                                             </ul>
                                             <div class="tab-content">
-                                                <div class="tab-pane fade  active  in" id="tab17">
+                                                @foreach ($attrs as $value)
+                                                <div class="tab-pane fade @if($i==1) active @endif in" id="tab{{$value->id}}">
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <th>S</th>
-                                                                <th>M</th>
-                                                                <th>L</th>
-
+                                                                @foreach ($value->values as $item)
+                                                                    <th>{{$item->value}}</th>
+                                                                @endforeach
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td> <input class="form-check-input" type="checkbox"
+                                                                @foreach ($value->values as $item)
+                                                                    <td> <input class="form-check-input" type="checkbox"
                                                                         name="attr[17][60]" value="60"> </td>
-                                                                <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[17][61]" value="61"> </td>
-                                                                <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[17][64]" value="64"> </td>
-
+                                                                @endforeach
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -144,38 +148,10 @@
                                                         <div> <button name="add_val" type="submit">Thêm</button></div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade  in" id="tab18">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Đỏ</th>
-                                                                <th>đen</th>
-                                                                <th>xám</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[18][62]" value="62"> </td>
-                                                                <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[18][63]" value="63"> </td>
-                                                                <td> <input class="form-check-input" type="checkbox"
-                                                                        name="attr[18][65]" value="65"> </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <label for="">Thêm giá trị của thuộc tính</label>
-                                                        <input type="hidden" name="id_pro" value="18">
-                                                        <input name="var_name" type="text" class="form-control"
-                                                            aria-describedby="helpId" placeholder="">
-                                                        <div> <button name="add_val" type="submit">Thêm</button></div>
-
-                                                    </div>
-                                                </div>
-
-
+                                                @php
+                                                $i=2
+                                                @endphp
+                                                @endforeach
                                                 <div class="tab-pane fade" id="tab-add">
 
                                                     <div class="form-group">

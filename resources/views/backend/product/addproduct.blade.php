@@ -36,10 +36,10 @@
         <!--/.row-->
         <div class="row">
             <div class="col-xs-6 col-md-12 col-lg-12">
-                <form method="post" enctype="multipart/form-data">
+                <form action="{{route('product.addPost')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <form action="" method="post"></form>
                     <div class="panel panel-primary">
+                        <form action="" method="post"></form>
                         <div class="panel-heading">Thêm sản phẩm</div>
                         <div class="panel-body">
                             <div class="row" style="margin-bottom:40px">
@@ -49,10 +49,7 @@
                                             <div class="form-group">
                                                 <label>Danh mục</label>
                                                 <select name="category" class="form-control">
-                                                    <option value='1' selected>Nam</option>
-                                                    <option value='3'>---|Áo khoác nam</option>
-                                                    <option value='2'>Nữ</option>
-                                                    <option value='4'>---|Áo khoác nữ</option>
+                                                   {!!GetCategory($categorys, 0, '', 0)!!}
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -71,8 +68,8 @@
                                                 {!! showErrors1($errors, 'product_price') !!}
                                             </div>
                                             <div class="form-group">
-                                                <label>Sản phẩm nổi bật</label>
-                                                <select name="product_state" class="form-control">
+                                                <label>Sản phẩm có nổi bật</label>
+                                                <select name="featured" class="form-control" value="">
                                                     <option value="0">Không</option>
                                                     <option value="1">Có</option>
                                                 </select>
@@ -132,16 +129,16 @@
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
-                                                                    @foreach ($value->values as $item)
-                                                                        <th>{{ $item->value }}</th>
+                                                                    @foreach ($value->values as $item_values)
+                                                                        <th>{{ $item_values->value }}</th>
                                                                     @endforeach
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    @foreach ($value->values as $item)
+                                                                    @foreach ($value->values as $item_values)
                                                                         <td> <input class="form-check-input" type="checkbox"
-                                                                                name="attr[17][60]" value="60"> </td>
+                                                                                name="attr[{{$value->name}}][]" value="{{$item_values->value}}"> </td>
                                                                     @endforeach
                                                                 </tr>
                                                             </tbody>
@@ -197,7 +194,7 @@
                                         <textarea id="editor" name="description"
                                             style="width: 100%;height: 100px;"></textarea>
                                     </div>
-                                    <button class="btn btn-success" name="add-product" type="submit">Thêm sản phẩm</button>
+                                    <button class="btn btn-success" type="submit">Thêm sản phẩm</button>
                                     <button class="btn btn-danger" type="reset">Huỷ bỏ</button>
                                 </div>
                             </div>

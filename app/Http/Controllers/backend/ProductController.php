@@ -5,7 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\backend\{AddProductRequest,EditProductRequest,AddAttrRequest,EditAttrRequest,AddValueRequest};
-use App\Models\{Attributes,Category,Products,Values};
+use App\Models\{Attributes,Category,Products,Values,Variant};
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -44,19 +44,28 @@ class ProductController extends Controller
         else {
             $product->img='no-img.jpg';
         }
-        //dd($request->attr);
+        $product->save();
+        // Để biết sản phẩm vừa lưu có những thuộc tính nào(xem thuộc tính sản phẩm id 1,2 trong ds SP)
         $mang=array();
         foreach ($request->attr as $value) {
-            foreach ($value as $key => $item) {
-                echo $key;
-                //echo $mang[]=$item;
+            foreach ($value as $item) {
+                $mang[]=$item;
             }
-           
         }
+        $product->values()->attach($mang);
         
-
+        // Một sản phẩm có nhiều biến thể VD XL-Đen, XL-Trắng -> 2 biến thể
+        // $variant tra ve 1 mang
+        $variant=get_combinations($request->attr);
+        foreach($variant as $var) 
+        {
+            $vari=new Variant;
+            $vari->product_id=$product->id;
+            $vari->save();
+            $vari->values()->attach($var);
+        }
+        return redirect('admin/product/add-variant/'.$product->id);
     }
-
     public function EditProduct()
     {
         return view('backend.product.editproduct');
@@ -127,9 +136,10 @@ class ProductController extends Controller
         Values::destroy($request->id_value);
         return redirect()->route('detail-attr')->with('thongbao-EditAttr','Đã xóa giá trị thuộc tính '.$request->name);
     }
-    public function AddVariant()
+    public function AddVariant($id)
     {
-        return view('backend.variant.addvariant');
+        $product=Products::find($id);
+        return view('backend.variant.addvariant',compact('product'));
     }
     public function EditVariant()
     {

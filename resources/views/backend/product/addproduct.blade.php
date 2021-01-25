@@ -138,7 +138,7 @@
                                                                 <tr>
                                                                     @foreach ($value->values as $item_values)
                                                                         <td> <input class="form-check-input" type="checkbox"
-                                                                                name="attr[{{$value->name}}][]" value="{{$item_values->value}}"> </td>
+                                                                                name="attr[{{$value->id}}][]" value="{{$item_values->id}}"> </td>
                                                                     @endforeach
                                                                 </tr>
                                                             </tbody>

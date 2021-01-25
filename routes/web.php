@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         // product table
         Route::get('','ProductController@ListProduct')->name('product.index');
         Route::get('add','ProductController@AddProduct')->name('product.add');
-        Route::post('add','ProductController@PostProduct');
+        Route::post('add','ProductController@PostProduct')->name('product.addPost');
         Route::get('edit','ProductController@EditProduct')->name('product.edit');
         Route::post('edit','ProductController@PostEditProduct');
         // attribute table

@@ -4,32 +4,57 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\backend\AddProductRequest;
-use App\Http\Requests\backend\AddAttrRequest;
-use App\Http\Requests\backend\AddValueRequest;
-use App\Http\Requests\backend\EditProductRequest;
-use App\Http\Requests\backend\EditAttrRequest;
-use App\Models\Attributes;
-use App\Models\Products;
-use App\Models\Values;
-
+use App\Http\Requests\backend\{AddProductRequest,EditProductRequest,AddAttrRequest,EditAttrRequest,AddValueRequest};
+use App\Models\{Attributes,Category,Products,Values};
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    // Product
     public function ListProduct()
     {
         // dd(attr_values(Products::find(1)->values()->get()));
         $data['products']=Products::paginate(10);
         return view('backend.product.listproduct', $data);
     }
-
     public function AddProduct()
     {
+        $data['categorys']=Category::all();
         $data['attrs']=Attributes::all();
         return view('backend.product.addproduct', $data);
     }
     public function PostProduct(AddProductRequest $request)
     {
+        $product = new Products();
+        $product->product_code=$request->product_code;
+        $product->name=$request->product_name;
+        $product->price=$request->product_price;
+        $product->featured=$request->featured;
+        $product->state=$request->product_state;
+        $product->info=$request->info;
+        $product->describe=$request->description;
+        $product->category_id=$request->category;
+        if($request->hasFile('product_img'))
+        {
+        $file = $request->product_img;
+        $filename= Str::random(4).'.'.$file->getClientOriginalExtension();
+        $file->move('public/backend/img', $filename);
+        $product->img= $filename;
+        }
+        else {
+            $product->img='no-img.jpg';
+        }
+        //dd($request->attr);
+        $mang=array();
+        foreach ($request->attr as $value) {
+            foreach ($value as $key => $item) {
+                echo $key;
+                //echo $mang[]=$item;
+            }
+           
+        }
+        
+
     }
 
     public function EditProduct()
@@ -39,6 +64,7 @@ class ProductController extends Controller
     public function PostEditProduct(EditProductRequest $request)
     {
     }
+    // /Product
 
     public function AddAttr(AddAttrRequest  $request)
     {
@@ -52,9 +78,6 @@ class ProductController extends Controller
         $data['attrs']=Attributes::all();
         return view('backend.attr.attr',$data);
     }
-
-    
-
     public function EditAttr($id)
     {
         $attrs=Attributes::find($id);

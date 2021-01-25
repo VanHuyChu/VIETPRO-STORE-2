@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('test/{id}', 'backend\ProductController@AddVariant');
+
 //backend
 Route::get('login','backend\LoginController@GetLogin')->name('login.get')->middleware('CheckLogout');
 Route::post('login','backend\LoginController@PostLogin');
@@ -51,7 +50,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::post('edit-value/{id}','ProductController@EditValuePost')->name('edit-value-post');
         Route::get('del-value','ProductController@DelValue')->name('del-value');
 
-        Route::get('add-variant','ProductController@AddVariant')->name('add-variant');
+        Route::get('add-variant/{id}','ProductController@AddVariant')->name('add-variant');
         Route::get('edit-variant','ProductController@EditVariant')->name('edit-variant');
 
     });

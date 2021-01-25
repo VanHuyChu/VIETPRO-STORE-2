@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\{Variant,Values,Category};
 
 class Products extends Model
 {
@@ -20,5 +21,9 @@ class Products extends Model
     public function values()
     {
         return $this->belongsToMany(Values::class, 'values_product', 'product_id', 'values_id');
+    }
+    public function variant()
+    {
+        return $this->hasMany(Variant::class, 'product_id', 'id');
     }
 }

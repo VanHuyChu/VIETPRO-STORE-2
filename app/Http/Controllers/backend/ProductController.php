@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\backend\{AddProductRequest,EditProductRequest,AddAttrRequest,EditAttrRequest,AddValueRequest};
 use App\Models\{Attributes,Category,Products,Values,Variant};
+use attribute;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -59,19 +60,78 @@ class ProductController extends Controller
         $variant=get_combinations($request->attr);
         foreach($variant as $var) 
         {
-            $vari=new Variant;
+            $vari= new Variant();
+          
+            $vari->price=9;
+            
             $vari->product_id=$product->id;
             $vari->save();
             $vari->values()->attach($var);
         }
         return redirect('admin/product/add-variant/'.$product->id);
+        // return redirect()->route('add-variant',['id'=>$product->id]);
     }
-    public function EditProduct()
+    public function EditProduct(Request $request, $id)
     {
-        return view('backend.product.editproduct');
+        $data['product']=Products::find($id);
+        $data['categorys']=Category::all();
+        $data['attrs']=Attributes::all();
+        return view('backend.product.editproduct', $data);
     }
-    public function PostEditProduct(EditProductRequest $request)
+    public function PostEditProduct(Request $request, $id)
     {
+        //dd($request->all());
+        $product=Products::find($id);
+        $product->product_code=$request->product_code;
+        $product->name=$request->name;
+        $product->price=$request->price;
+        $product->featured=$request->featured;
+        $product->state=$request->state;
+        $product->info=$request->info;
+        $product->describe=$request->description;
+        $product->category_id=$request->category;
+        if($request->hasFile('product_img'))
+        {
+            
+        $file = $request->product_img;
+        $filename= Str::random(4).'.'.$file->getClientOriginalExtension();
+        $file->move('public/backend/img', $filename);
+        $product->img= $filename;
+        }
+        $product->save();
+        // cap nhat gia tri san pham
+        $mang=array();
+        foreach ($request->attr as $value) {
+            foreach ($value as $item) {
+                $mang[]=$item;
+            }
+        }
+        $product->values()->Sync($mang);
+        // cap nhat bang bien the variant
+        $variant=get_combinations($request->attr);
+        foreach($variant as $var) 
+        {
+            // neu ton tai cac bien the new -> them vao database
+            if(check_var($product, $var)){
+                $vari= new Variant();
+          
+                $vari->price=9;
+                
+                $vari->product_id=$product->id;
+                $vari->save();
+                $vari->values()->attach($var);
+            }
+           
+        }
+
+
+        return redirect()->back()->with('thongbao','Da sua thanh cong!');
+
+    }
+    function DeleteProduct($id)
+    {
+        Products::destroy($id);
+        return redirect()->back()->with('thongbao','Da xoa thang cong san pham');
     }
     // /Product
 
@@ -141,8 +201,35 @@ class ProductController extends Controller
         $product=Products::find($id);
         return view('backend.variant.addvariant',compact('product'));
     }
-    public function EditVariant()
+    public function PostVariant(Request $request, $id)
     {
-        return view('backend.variant.editvariant');
+        //dd($request->all());
+        foreach ($request->variant as $id => $price) {
+            $variantItem=Variant::find($id);
+            $variantItem->price=$price;
+            $variantItem->save();
+        }
+        return redirect()->route('product.index')->with('thongbao','Đã cập nhật giá thành công');
+    }
+
+    public function EditVariant($id)
+    {
+        $data['product']=Products::find($id);
+
+        return view('backend.variant.editvariant', $data);
+    }
+    public function PostEditVariant(Request $request, $id)
+    {
+        foreach ($request->variant as $id => $price) {
+            $variantItem=Variant::find($id);
+            $variantItem->price=$price;
+            $variantItem->save();
+        }
+        return redirect()->route('product.index')->with('thongbao','Đã cập nhật giá thành công');
+    }
+    public function DelVariant($id)
+    {
+        variant::destroy($id);
+        return redirect()->back()->with('thongbao','Đã xoa bien the thành công');
     }
 }

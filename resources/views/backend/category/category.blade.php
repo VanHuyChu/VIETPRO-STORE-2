@@ -33,7 +33,7 @@
                                         <label for="">Danh mục cha:</label>
                                         <select class="form-control" name="parent" id="">
                                             <option value="0">----ROOT----</option>
-                                            {{ GetCategory($category, 0, '',0) }}
+                                            {{ getCategories($category, 0, '',0) }}
                                         </select>
                                     </div>
                                     <div class="form-group">

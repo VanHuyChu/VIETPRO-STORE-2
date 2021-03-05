@@ -36,8 +36,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::get('','ProductController@ListProduct')->name('product.index');
         Route::get('add','ProductController@AddProduct')->name('product.add');
         Route::post('add','ProductController@PostProduct')->name('product.addPost');
-        Route::get('edit','ProductController@EditProduct')->name('product.edit');
-        Route::post('edit','ProductController@PostEditProduct');
+        Route::get('edit/{id}','ProductController@EditProduct')->name('product.edit');
+        Route::post('edit/{id}','ProductController@PostEditProduct')->name('product.editPost');
+        Route::get('del/{id}','ProductController@DeleteProduct')->name('product.delete');
+
         // attribute table
         Route::post('add-attr','ProductController@AddAttr')->name('add-attr');
         Route::get('detail-attr','ProductController@DetailAttr')->name('detail-attr');
@@ -51,7 +53,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::get('del-value','ProductController@DelValue')->name('del-value');
 
         Route::get('add-variant/{id}','ProductController@AddVariant')->name('add-variant');
-        Route::get('edit-variant','ProductController@EditVariant')->name('edit-variant');
+        Route::post('add-variant/{id}','ProductController@PostVariant')->name('postadd-variant');
+        Route::get('edit-variant/{id}','ProductController@EditVariant')->name('edit-variant');
+        Route::post('edit-variant/{id}','ProductController@PostEditVariant')->name('postedit-variant');
+        Route::get('del-variant/{id}','ProductController@DelVariant')->name('del-variant');
 
     });
     //order
@@ -60,4 +65,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
         Route::get('detail','OrderController@DetailOrder')->name('order.detail');
         Route::get('processed','OrderController@Processed')->name('order.processed');
     });
+});
+
+//frontend
+Route::get('','frontend\HomeController@GetHome');
+Route::get('contact','frontend\HomeController@GetContact');
+Route::get('about','frontend\HomeController@GetAbout');
+Route::group(['prefix' => 'product'], function () {
+    Route::get('','frontend\ProductController@ListProduct');
+    Route::get('detail','frontend\ProductController@DetailProduct');
+    Route::get('cart','frontend\ProductController@GetCart');
+    Route::get('checkout','frontend\ProductController@CheckOut');
+    Route::get('complete','frontend\ProductController@complate');
 });

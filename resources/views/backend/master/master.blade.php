@@ -29,6 +29,7 @@
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/chart-data.js"></script>
 	@yield('script_product')
+	@yield('script-variant')
 
 </body>
 

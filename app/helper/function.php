@@ -1,5 +1,21 @@
 <?php
 use Illuminate\Routing\UrlGenerator;
+
+
+function getCategories($array, $parentId, $char, $isParent)
+{
+    foreach ($array as $key => $value) {
+        if ($value['parent'] == $parentId) {
+            if ($value['id'] == $isParent) {
+                echo '<option selected value="' . $value['id'] . '">' . $char . $value['name'] . '</option>';
+            } else {
+                echo '<option value="' . $value['id'] . '">' . $char . $value['name'] . '</option>';
+            }
+            $new_parent = $value['id'];
+            getCategories($array, $new_parent, $char . "--|", $isParent);
+        }
+    }
+}
 function GetCategory($mang, $parent, $shift, $active)
 {
     foreach ($mang as $row) {
@@ -102,4 +118,30 @@ function get_combinations($arrays) {
 		$result = $tmp;
 	}
 	return $result;
+}
+// check value edit product
+function check_value($product, $value_check) 
+{
+    foreach ($product->values as $value) {
+        if($value->id ==$value_check){
+            return true;
+        }
+    }
+    return false;
+
+}
+
+// kiem tra bien the
+function check_var($product, $array)
+{
+    foreach ($product->variant as $value) {
+        $mang[]=$value->id;
+        // tra ve 1 array bien the [do-XL]...
+        // array_diff la ham so sanh 2 array
+        if(array_diff($mang,$array)==null){
+            return false;
+        }
+    }   
+    return true;
+    
 }

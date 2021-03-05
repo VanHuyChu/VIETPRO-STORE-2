@@ -24,11 +24,12 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <form method="post">
-                  
+                    @csrf
                     <div class="panel-heading" align='center'>
-                        Giá cho từng biến thể sản phẩm : Áo khoác nam đẹp (AN01)
+                        Giá cho từng biến thể sản phẩm : {{ $product->name }} ({{ $product->product_code }})
+                        {{ShowSession(session('thongbao'))}}
                     </div>
-                        <div class="panel-body" align='center'>
+                    <div class="panel-body" align='center'>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -38,43 +39,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($product->variant as $variant)
                                 <tr>
-                                    <td scope="row">
-                                        size : M,
-                                        Màu sắc : đen,
-                                    </td>
-                                    <td>
-                                        <input name="" class="form-control" placeholder="Giá cho biến thể" value="100000">
-                                    </td>
-                                    <td>
-                                        <a id="" class="btn btn-warning" href="#" role="button">Xoá</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">
-                                        size : M,
-                                        Màu sắc : đen,
-                                    </td>
-                                    <td>
-                                        <input name="" class="form-control" placeholder="Giá cho biến thể" value="200000">
-                                    </td>
-                                    <td>
-                                        <a id="" class="btn btn-warning" href="#" role="button">Xoá</a>
-                                    </td>
-                                </tr>
+                                      <td scope="row">
+                                          @foreach ($variant->values as $value)
+                                              {{$value->attribute->name}} : {{$value->value}},
+                                          @endforeach
+                                       
+                                      </td>
+                                      <td>
+                                          <input name="variant[{{$variant->id}}]" class="form-control" placeholder="Giá cho biến thể" value="{{$variant->price}}">
+                                      </td>
+                                      <td>
+                                          <a onclick="return del_variant()" id="" class="btn btn-warning" href="{{route('del-variant',['id'=>$variant->id])}}" role="button">Xoá</a>
+                                      </td>
+                                  </tr>
+                                @endforeach
+
+
                             </tbody>
                         </table>
 
                     </div>
-                    <div align='right'><button class="btn btn-success" type="submit"> Cập nhật </button> <a class="btn btn-warning"
-                            href="admin/product" role="button">Bỏ qua</a></div>
+                    <div align='right'><button class="btn btn-success" type="submit"> Cập nhật </button> <a
+                            class="btn btn-warning" href="admin/product" role="button">Bỏ qua</a></div>
                 </form>
             </div>
         </div>
-
-
-
-
 
     </div>
     <!--/.main-->

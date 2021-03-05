@@ -27,6 +27,7 @@
                     @csrf
                     <div class="panel-heading" align='center'>
                         Giá cho từng biến thể sản phẩm : {{ $product->name }} ({{ $product->product_code }})
+                        {{ShowSession(session('thongbao'))}}
                     </div>
                     <div class="panel-body" align='center'>
                         <table class="table">
@@ -39,21 +40,20 @@
                             </thead>
                             <tbody>
                                 @foreach ($product->variant as $variant)
-                                    <tr>
-                                        <td scope="row">
-                                            @foreach ($variant->values as $value)
-                                                {{ $value->attribute->name }} : {{ $value->value }},
-                                            @endforeach
-
-                                        </td>
-                                        <td>
-                                            <input name="variant[{{ $variant->id }}]" class="form-control"
-                                                placeholder="Giá cho biến thể" value="">
-                                        </td>
-                                        <td>
-                                            <a id="" class="btn btn-warning" href="#" role="button">Xoá</a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                      <td scope="row">
+                                          @foreach ($variant->values as $value)
+                                              {{$value->attribute->name}} : {{$value->value}},
+                                          @endforeach
+                                       
+                                      </td>
+                                      <td>
+                                          <input name="variant[{{$variant->id}}]" class="form-control" placeholder="Giá cho biến thể" value="">
+                                      </td>
+                                      <td>
+                                          <a onclick="return del_variant()" id="" class="btn btn-warning" href="{{route('del-variant',['id'=>$variant->id])}}" role="button">Xoá</a>
+                                      </td>
+                                  </tr>
                                 @endforeach
 
 
@@ -68,4 +68,12 @@
         </div>
 
     </div>
+@endsection
+
+@section('script-variant')
+    <script>
+        function del_variant(){
+            return confirm('Ban co muon xoa bien the nay?');
+        }
+    </script>
 @endsection

@@ -31,11 +31,8 @@
 					<div class="panel-body">
 						<div class="bootstrap-table">
 							<div class="table-responsive">
-								<div class="alert bg-success" role="alert">
-									<svg class="glyph stroked checkmark">
-										<use xlink:href="#stroked-checkmark"></use>
-									</svg>Đã thêm thành công<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-								</div>
+								
+								{{ShowSession(session('thongbao'))}}
 								<a href="{{route('product.add')}}" class="btn btn-primary">Thêm sản phẩm</a>
 								<table class="table table-bordered" style="margin-top:20px;">
 
@@ -80,8 +77,8 @@
 											</td>
 											<td>{{$item->category->name}}</td>
 											<td>
-												<a href="{{route('product.edit')}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
-												<a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
+												<a href="{{route('product.edit',['id'=>$item->id])}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
+												<a href="{{route('product.delete',['id'=>$item->id])}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
 											</td>
 										</tr>
 										@endforeach

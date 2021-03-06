@@ -145,3 +145,20 @@ function check_var($product, $array)
     return true;
     
 }
+// cart
+function getprice($product,$array)
+{
+    foreach ($product->variant as $row) {
+        $mang=array();
+        foreach ($row->values as $value) {
+            $mang[]=$value->value;
+        }
+        if(array_diff($mang,$array)==null){
+            if($row->price==0){
+                return $product->price;
+            }
+            return $row->price;
+        }
+    }
+    return $product->price;
+}

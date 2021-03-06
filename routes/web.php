@@ -62,7 +62,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
     //order
     Route::group(['prefix' => 'order'], function () {
         Route::get('','OrderController@ListOrder')->name('order.index');
-        Route::get('detail','OrderController@DetailOrder')->name('order.detail');
+        Route::get('detail/{id}','OrderController@DetailOrder')->name('order.detail');
+        Route::get('active/{id}','OrderController@ActiveOrder')->name('order.active');
         Route::get('processed','OrderController@Processed')->name('order.processed');
     });
 });

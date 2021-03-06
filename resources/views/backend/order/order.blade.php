@@ -38,16 +38,18 @@
 										</tr>
 									</thead>
 									<tbody>
+										@foreach ($customers as $customer)
 										<tr>
-											<td>1</td>
-											<td>Nguyễn Thế Phúc</td>
-											<td>0356653300</td>
-											<td>Thường tín</td>
+											<td>{{$customer->id}}</td>
+											<td>{{$customer->full_name}}</td>
+											<td>{{$customer->phone}}</td>
+											<td>{{$customer->address}}</td>
 											<td>
-												<a href="{{route('order.detail')}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>Xử lý</a>
-
+												<a href="{{route('order.detail',['id'=>$customer->id])}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>Xử lý</a>
 											</td>
 										</tr>
+										@endforeach
+										
 
 									</tbody>
 								</table>

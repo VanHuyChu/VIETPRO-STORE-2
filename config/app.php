@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // shopping cart bumbummem99
+        //Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
     ],
 
     /*

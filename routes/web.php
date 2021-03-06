@@ -68,13 +68,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'backend','middleware'=>'Check
 });
 
 //frontend
-Route::get('','frontend\HomeController@GetHome');
-Route::get('contact','frontend\HomeController@GetContact');
-Route::get('about','frontend\HomeController@GetAbout');
+Route::get('','frontend\HomeController@GetHome')->name('site.index');
+Route::get('contact','frontend\HomeController@GetContact')->name('site.contact');
+Route::get('about','frontend\HomeController@GetAbout')->name('site.about');
 Route::group(['prefix' => 'product'], function () {
-    Route::get('','frontend\ProductController@ListProduct');
-    Route::get('detail','frontend\ProductController@DetailProduct');
-    Route::get('cart','frontend\ProductController@GetCart');
-    Route::get('checkout','frontend\ProductController@CheckOut');
-    Route::get('complete','frontend\ProductController@complate');
+    Route::get('','frontend\ProductController@ListProduct')->name('site.product');
+    Route::get('detail/{id}','frontend\ProductController@DetailProduct')->name('site.DetailProduct');
+    Route::get('addcart','frontend\ProductController@AddCart')->name('site.addcart');
+    Route::get('cart','frontend\ProductController@GetCart')->name('site.cart');
+    Route::get('removecart/{id}','frontend\ProductController@RemoveCart')->name('site.removecart');
+    Route::get('updatecart/{rowid}/{qty}','frontend\ProductController@UpdateCart')->name('site.updatecart');
+    Route::get('checkout','frontend\ProductController@CheckOut')->name('site.checkout');
+    Route::post('checkout','frontend\ProductController@PostCheckOut')->name('site.postcheckout');
+    Route::get('complete/{id}','frontend\ProductController@complate')->name('site.complate');
 });

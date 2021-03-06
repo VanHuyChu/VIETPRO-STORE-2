@@ -12,4 +12,8 @@ class Values extends Model
     {
         return $this->belongsTo(Attributes::class, 'attr_id', 'id');
     }
+    public function product()
+    {
+        return $this->belongsToMany(Products::class, 'values_product', 'values_id', 'product_id');
+    }
 }
